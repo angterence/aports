@@ -2,7 +2,7 @@
 # Maintainer: Terence Ang <taang@qnx.com>
 pkgname=json-c
 pkgver=0.19
-pkgrel=1
+pkgrel=0
 pkgdesc="A JSON implementation in C"
 url="https://github.com/json-c/json-c/wiki"
 arch="all"
