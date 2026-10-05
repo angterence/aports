@@ -20,13 +20,13 @@ source="https://s3.amazonaws.com/json-c_releases/releases/json-c-$pkgver.tar.gz
 #     - CVE-2020-12762
 
 build() {
-	cmake3.5 -B build -G Ninja \
+	cmake -B build -G Ninja \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DBUILD_SHARED_LIBS=ON \
 		-DBUILD_STATIC_LIBS=ON \
 		-DENABLE_THREADING=ON \
-		-DCMAKE_BUILD_TYPE=MinSizeRel
+		-DCMAKE_BUILD_TYPE=Release
 	cmake --build build --target all doc
 }
 
