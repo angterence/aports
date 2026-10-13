@@ -15,6 +15,7 @@ makedepends="
     glib-dev
     gobject-introspection-dev
     gtk3-dev
+    gtk3
     libgcrypt-dev
     libsecret-dev
     libxslt
