@@ -23,7 +23,7 @@ makedepends="
     clang
     libc++-dev
     "
-checkdepends="python3"
+checkdepends="python3 cairo"
 depends="freetype glib graphite"
 subpackages="
     $pkgname-static
