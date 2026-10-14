@@ -1,5 +1,6 @@
 # Contributor: Stuart Cardall <developer@it-offshore.co.uk>
-# Maintainer: Stuart Cardall <developer@it-offshore.co.uk>
+# Alpine-Maintainer: Stuart Cardall <developer@it-offshore.co.uk>
+# Maintainer: Terence Ang <taang@qnx.com>
 pkgname=lz4
 pkgver=1.10.0
 pkgrel=0
