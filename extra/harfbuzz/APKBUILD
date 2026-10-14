@@ -74,7 +74,10 @@ package() {
 
 icu() {
     pkgdesc="Harfbuzz ICU support library"
-    depends="icu-libs"
+    depends="
+        $pkgname=$pkgver-r$pkgrel
+        icu-libs
+    "
     replaces="harfbuzz"
 
     amove usr/lib/lib*icu.so.*
@@ -82,23 +85,33 @@ icu() {
 
 gobject() {
     pkgdesc="Harfbuzz gobject library"
+    depends="$pkgname=$pkgver-r$pkgrel"
     amove usr/lib/lib*gobject.so.*
 }
 
 cairo() {
     pkgdesc="Harfbuzz cairo library"
-    depends="cairo"
+    depends="
+        $pkgname=$pkgver-r$pkgrel
+        cairo
+    "
     amove usr/lib/lib*cairo.so.*
 }
 
 subset() {
     pkgdesc="Harfbuzz subset library"
+    depends="$pkgname=$pkgver-r$pkgrel"
     amove usr/lib/lib*subset.so.*
 }
 
 utils() {
     pkgdesc="$pkgdesc (utilities)"
-    depends="$pkgname-gobject"
+    depends="
+        $pkgname=$pkgver-r$pkgrel
+        $pkgname-cairo=$pkgver-r$pkgrel
+        $pkgname-gobject=$pkgver-r$pkgrel
+        $pkgname-subset=$pkgver-r$pkgrel
+    "
     amove usr/bin
 }
 
