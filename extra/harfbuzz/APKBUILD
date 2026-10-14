@@ -64,6 +64,10 @@ build() {
 }
 
 check() {
+    # Some test outcomes are "FAIL" or "ERROR" and were documented as follows:
+    # 28/215 src - harfbuzz:check-symbols                                 FAIL             0.28s   exit status 1
+    # 29/215 src - harfbuzz:check-libstdc++                               FAIL             0.22s   exit status 1
+    # 65/215 api - harfbuzz:test-paint                                    ERROR            0.11s   killed by signal 6 SIGABRT
     LD_LIBRARY_PATH="$builddir/output/src":$LD_LIBRARY_PATH \
     meson test --print-errorlogs -C output || msg "Some tests fail due to linking against libc++"
 }
