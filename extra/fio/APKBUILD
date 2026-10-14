@@ -9,7 +9,7 @@ url="https://github.com/axboe/fio"
 arch="all"
 license="GPL-2.0-only"
 depends="zlib-ng"
-makedepends="zlib-ng-dev"
+makedepends="zlib-ng-dev qnx-io-sock-dev"
 subpackages="$pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/axboe/fio/archive/fio-$pkgver.tar.gz
     fix-qnx.patch
