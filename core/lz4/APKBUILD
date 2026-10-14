@@ -8,6 +8,7 @@ url="https://github.com/lz4/lz4"
 arch="all"
 license="BSD-2-Clause AND GPL-2.0-or-later"
 subpackages="$pkgname-static $pkgname-dev $pkgname-doc $pkgname-libs $pkgname-tests:tests"
+checkdepends="diffutils"
 source="$pkgname-$pkgver.tar.gz::https://github.com/lz4/lz4/archive/refs/tags/v$pkgver.tar.gz
         fix-qnx.patch"
 
