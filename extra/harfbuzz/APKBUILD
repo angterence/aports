@@ -46,7 +46,7 @@ build() {
     CXXFLAGS="$CXXFLAGS -O2 -Qunused-arguments" \
     CPPFLAGS="$CPPFLAGS -O2 -Qunused-arguments" \
     LDFLAGS="-llocale" \
-    meson \
+    meson setup \
         --default-library=both \
         --prefix=/usr \
         -Dglib=enabled \
