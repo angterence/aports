@@ -12,8 +12,8 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/lz4/lz4/archive/refs/tags/v$
         fix-qnx.patch"
 
 build() {
-    export CFLAGS="$CFLAGS -O3 -flto=auto"
-    export CPPFLAGS="$CPPFLAGS -O3 -flto=auto"
+    export CFLAGS="$CFLAGS -O3"
+    export CPPFLAGS="$CPPFLAGS -O3"
     make PREFIX=/usr
 }
 
