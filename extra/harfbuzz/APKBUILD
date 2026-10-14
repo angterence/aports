@@ -1,3 +1,6 @@
+# Contributor: Sören Tempel <soeren+alpinelinux@soeren-tempel.net>
+# Alpine-Maintainer: Natanael Copa <ncopa@alpinelinux.org>
+# Maintainer: Terence Ang <taang@qnx.com>
 pkgname=harfbuzz
 pkgver=11.3.3
 pkgrel=1
