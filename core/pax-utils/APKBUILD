@@ -18,9 +18,9 @@ source="https://dev.gentoo.org/~sam/distfiles/app-misc/pax-utils/pax-utils-$pkgv
 build() {
 
     _extra_flags=""
-        if [[ $CBUILD = $CHOST ]]; then
+    if [[ $CBUILD = $CHOST ]]; then
         # Compile natively
-        _extra_flags="-Dc_link_args=-lregex"
+        _extra_flags="-Dc_link_args=-lregex -Duse_fuzzing=false"
     else
         # Cross compiling
         BUILD_ROOT=$CBUILDROOT $CBUILDROOT/system/bin/gen-meson-cross
