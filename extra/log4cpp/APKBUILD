@@ -1,3 +1,6 @@
+# Contributor: Hidde van der Heide <hvanderheide@nexuz.net>
+# Alpine-Maintainer: Roberto Oliveira <robertoguimaraes8@gmail.com>
+# Maintainer: Terence Ang <taang@qnx.com>
 pkgname=log4cpp
 pkgver=1.1.4
 pkgrel=0
