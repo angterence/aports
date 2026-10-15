@@ -4,7 +4,7 @@
 # Maintainer: Terence Ang <taang@qnx.com>
 pkgname=pango
 pkgver=1.56.4
-pkgrel=2
+pkgrel=3
 pkgdesc="library for layout and rendering of text"
 url="https://www.pango.org/"
 arch="all"
