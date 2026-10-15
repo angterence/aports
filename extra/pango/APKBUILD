@@ -62,6 +62,7 @@ package() {
 
 tools() {
     pkgdesc="$pkgdesc (tools)"
+    depends="$depends $pkgname=$pkgver-r$pkgrel"
 
     amove usr/bin
 }
