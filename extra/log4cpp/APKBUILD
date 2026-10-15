@@ -22,9 +22,9 @@ prepare() {
 
 build() {
     ./configure \
-        --prefix=$PREFIX \
+        --prefix=/usr \
         --sysconfdir=/etc \
-        --mandir=$PREFIX/share/man \
+        --mandir=/usr/share/man \
         --localstatedir=/var \
         --disable-dot \
         --disable-static \
