@@ -22,7 +22,18 @@ prepare() {
 }
 
 build() {
+    if [ "$CARCH" = "aarch64" ]; then
+        build_arch="$(arch)"
+        build_os="$(uname -s)"
+        build_release="$(uname -r)"
+
+        host_platform="--host=$CARCH-$build_arch-nto-${build_os,,}$build_release"
+        build_platform="--build=$CARCH-$build_arch-nto-${build_os,,}$build_release"
+    fi
+
     ./configure \
+        "$host_platform" \
+        "$build_platform" \
         --prefix=/usr \
         --sysconfdir=/etc \
         --mandir=/usr/share/man \
