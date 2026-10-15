@@ -9,7 +9,7 @@ url="https://log4cpp.sourceforge.net/"
 arch="all"
 license="LGPL-2.1-or-later"
 subpackages="$pkgname-dev"
-makedepends="qnx-base-dev make libtool"
+makedepends="make libtool diffutils libc++-dev glib-dev"
 source="https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz"
 builddir="$srcdir/$pkgname"
 
