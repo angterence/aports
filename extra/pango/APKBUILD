@@ -1,3 +1,7 @@
+# Contributor: Leo <thinkabit.ukim@gmail.com>
+# Contributor: Rasmus Thomsen <oss@cogitri.dev>
+# Alpine-Maintainer: Simon Zeni <simon@bl4ckb0ne.ca>
+# Maintainer: Terence Ang <taang@qnx.com>
 pkgname=pango
 pkgver=1.56.4
 pkgrel=2
