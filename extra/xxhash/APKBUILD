@@ -4,7 +4,7 @@
 # Maintainer: Terence Ang <taang@qnx.com>
 pkgname=xxhash
 pkgver=0.8.3
-pkgrel=0
+pkgrel=1
 pkgdesc="Extremely fast non-cryptographic hash algorithm"
 url="https://cyan4973.github.io/xxHash/"
 arch="all"
