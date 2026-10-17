@@ -5,7 +5,7 @@
 # Maintainer: Terence Ang <taang@qnx.com>
 pkgname=gawk
 pkgver=5.3.2
-pkgrel=0
+pkgrel=1
 pkgdesc="GNU awk pattern-matching language"
 url="https://www.gnu.org/software/gawk/gawk.html"
 arch="all"
