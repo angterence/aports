@@ -25,8 +25,17 @@ prepare() {
 }
 
 build() {
+    if [ "$CARCH" = "aarch64" ]; then
+        target_arch=$(arch)
+        target_os=$(uname -o)
+        target_release=$(uname -r)
+        target_platform="$CARCH-$target_arch-nto-${target_os,,}${target_release}"
+        extra_options="--host=$target_platform --build=$target_platform"
+    fi
+
     LDFLAGS="$LDFLAGS -lregex" \
     ./configure \
+        $extra_options \
         --prefix=/usr \
         --sysconfdir=/etc \
         --mandir=/usr/share/man \
