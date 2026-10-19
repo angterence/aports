@@ -42,6 +42,7 @@ package() {
 
 utils() {
 	pkgdesc="Command line utilities for the DEFLATE library"
+	depends="$pkgname=$pkgver-r$pkgrel"
 	amove usr/bin
 }
 
