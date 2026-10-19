@@ -1,6 +1,5 @@
 # Contributor: Holger Jaekel <holger.jaekel@gmx.de>
-# QNX Maintainer: Felix Xing <fxing@qnx.com>
-
+# Maintainer: Felix Xing <fxing@qnx.com>
 pkgname=libdeflate
 pkgver=1.24
 pkgrel=0
