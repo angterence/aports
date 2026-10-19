@@ -30,10 +30,19 @@ prepare() {
 }
 
 build() {
+    if [ "$CARCH" = "aarch64" ]; then
+        target_arch=$(arch)
+        target_os=$(uname -o)
+        target_release=$(uname -r)
+        target_platform="$CARCH-$target_arch-nto-${target_os,,}${target_release}"
+        extra_options="--host=$target_platform --build=$target_platform"
+    fi
+
     export LIBS="-lsocket"
     export CFLAGS="$CFLAGS -Wno-error -Wno-unused-command-line-argument -Wno-error=static-in-inline -Wno-deprecated-declarations -Wno-unused-function -Wno-error=missing-field-initializers -Wno-c2y-extensions"
     export CXXFLAGS="$CXXFLAGS -Wno-error -Wno-unused-command-line-argument -Wno-error=static-in-inline -Wno-deprecated-declarations -Wno-unused-function"
     ./configure \
+        $extra_options \
         --prefix=/usr \
         --disable-static \
         --disable-python \
