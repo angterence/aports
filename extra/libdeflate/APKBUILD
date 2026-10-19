@@ -2,7 +2,7 @@
 # Maintainer: Felix Xing <fxing@qnx.com>
 pkgname=libdeflate
 pkgver=1.24
-pkgrel=0
+pkgrel=1
 pkgdesc="Library for fast, whole-buffer DEFLATE-based compression and decompression"
 url="https://github.com/ebiggers/libdeflate"
 arch="all"
