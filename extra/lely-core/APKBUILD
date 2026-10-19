@@ -31,7 +31,7 @@ prepare() {
 
 build() {
     export LIBS="-lsocket"
-    export CFLAGS="$CFLAGS -Wno-error -Wno-unused-command-line-argument -Wno-error=static-in-inline -Wno-deprecated-declarations -Wno-unused-function -Wno-error=missing-field-initializers"
+    export CFLAGS="$CFLAGS -Wno-error -Wno-unused-command-line-argument -Wno-error=static-in-inline -Wno-deprecated-declarations -Wno-unused-function -Wno-error=missing-field-initializers -Wno-c2y-extensions"
     export CXXFLAGS="$CXXFLAGS -Wno-error -Wno-unused-command-line-argument -Wno-error=static-in-inline -Wno-deprecated-declarations -Wno-unused-function"
     ./configure \
         --prefix=/usr \
