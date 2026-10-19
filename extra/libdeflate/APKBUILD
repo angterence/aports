@@ -24,6 +24,7 @@ source="
 	"
 
 build() {
+	CFLAGS="$CFLAGS -D__EVEX512__" \
 	cmake -B build -G Ninja \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \
