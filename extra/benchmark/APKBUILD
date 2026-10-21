@@ -9,7 +9,7 @@ url="https://github.com/google/benchmark"
 arch="all"
 license="Apache-2.0"
 depends="libc++"
-makedepends="cmake gtest-dev libc++-dev ninja"
+makedepends="cmake gtest-dev libc++-dev ninja llvm"
 subpackages="$pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/google/benchmark/archive/refs/tags/v$pkgver.tar.gz"
 
