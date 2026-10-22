@@ -1,0 +1,37 @@
+# Maintainer: Terence Ang <taang@qnx.com>
+pkgname=hpmpc
+pkgver=0.2_git20180813
+_commit="da0f9791034cb09bb0904d73504e948d8ea4d0a5"
+pkgrel=0
+pkgdesc="Library for High-Performance implementation of solvers for MPC."
+url="https://github.com/giaf/hpmpc"
+arch="all"
+license="LGPL-2.1-only"
+options="!check"
+makedepends="cmake blasfeo-dev qnx-microkernel-dev libc++-dev"
+subpackages="$pkgname-static $pkgname-dev"
+source="$pkgname-$pkgver.tar.gz::https://github.com/giaf/hpmpc/archive/$_commit.tar.gz"
+builddir="$srcdir/$pkgname-$_commit"
+
+build() {
+    export CFLAGS="$CFLAGS -Wno-argument-outside-range -Wno-return-type -Wno-implicit-function-declaration"
+    cmake -B build -S . \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+
+    cmake --build build -j"$(nproc)"
+}
+
+package() {
+    DESTDIR="$pkgdir" cmake --install build
+}
+
+static() {
+    pkgdesc="$pkgname (static)"
+    install_if="$pkgname=$pkgver-r$pkgrel"
+    amove usr/lib/*.a
+}
+
+sha512sums="
+1143fa810c8b273590e36b665ac128e76285f4c871a039b86af0c665e363fd754f051eefcface3609066295c18e9cf655d7c631da665dde59955c5b97da044ae  hpmpc-0.2_git20180813.tar.gz
+"
