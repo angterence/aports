@@ -1,0 +1,38 @@
+# Maintainer: Terence Ang <taang@qnx.com>
+pkgname=qpdunes
+pkgver=0.0.1_git20171214
+_commit="4f5bdb4ff19a4a2896abe5bfd8fbde5710f34950"
+pkgrel=0
+pkgdesc="Private development repository for qpDUNES"
+url="https://github.com/acados/qpDUNES-dev"
+arch="all"
+license="LGPL-3.0-only"
+options="!check"
+makedepends="cmake libc++-dev"
+subpackages="$pkgname-static $pkgname-dev"
+source="$pkgname-$pkgver.tar.gz::https://github.com/acados/qpDUNES-dev/archive/$_commit.tar.gz"
+builddir="$srcdir/qpDUNES-dev-$_commit"
+
+build() {
+    cmake -B build -S . \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+
+    cmake --build build -j"$(nproc)"
+}
+
+package() {
+    DESTDIR="$pkgdir" cmake --install build
+    mkdir -p "$pkgdir"/usr/share
+    mv "$pkgdir"/usr/cmake "$pkgdir"/usr/share
+}
+
+static() {
+    pkgdesc="$pkgname (static)"
+    install_if="$pkgname=$pkgver-r$pkgrel"
+    amove usr/lib/*.a
+}
+
+sha512sums="
+c4bc5aa6c6af89e75a87613fc97e0cb7ddcf655596ff486878ad565d6e4265e1924e250f7eca730d7adf1f107b7600bb9787a66ebb85f9791283f280d2713831  qpdunes-0.0.1_git20171214.tar.gz
+"
