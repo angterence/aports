@@ -1,0 +1,45 @@
+# Maintainer: Terence Ang <taang@qnx.com>
+pkgname=blasfeo
+pkgver=0.1.4.3_git20261013
+_commit="0a3df8683c6bf9d98168d616e0c5d05938c9d51c"
+pkgrel=0
+pkgdesc="Basic linear algebra subroutines for embedded optimization"
+url="https://github.com/giaf/blasfeo"
+arch="all"
+license="BSD-2-Clause"
+makedepends="cmake"
+checkdepends="python3-jinja2 blas-dev lapack-dev"
+subpackages="$pkgname-dev"
+source="
+    $pkgname-$_commit.tar.gz::https://github.com/giaf/blasfeo/archive/$_commit.tar.gz
+"
+builddir="$srcdir/$pkgname-$_commit"
+
+prepare() {
+    default_prepare
+    sed -i 's/^ifeq ($(UNAME_S), Linux).*/ifneq ($(filter Linux QNX,$(UNAME_S)),)/' Makefile.rule
+}
+
+build() {
+    cmake -B build -S . \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_INSTALL_DATAROOTDIR=lib \
+        -DBUILD_SHARED_LIBS=ON \
+        -DTARGET=GENERIC
+
+    cmake --build build -j"$(nproc)"
+}
+
+package() {
+    DESTDIR="$pkgdir" cmake --install build
+}
+
+check() {
+    cd tests
+    python tester.py testset_ci_blasfeo_pm_double_amd64.json
+}
+
+
+sha512sums="
+14c07d2267b4383a1e1b5571f1c02af6c276346f1980a4aa21a18efe9e9d15f0134f1dfe575bf73d365d040b4252cc8605eceef26610f56725f7e6536259a8ec  blasfeo-0a3df8683c6bf9d98168d616e0c5d05938c9d51c.tar.gz
+"
