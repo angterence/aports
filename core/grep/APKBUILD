@@ -3,7 +3,7 @@
 # Maintainer: Leo Shen <yishen@qnx.com>
 pkgname=grep
 pkgver=3.11
-pkgrel=1
+pkgrel=2
 arch="all"
 pkgdesc="Searches input files for lines containing a match to a specified pattern"
 url="https://www.gnu.org/software/grep/grep.html"
