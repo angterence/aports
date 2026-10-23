@@ -65,8 +65,6 @@ source="https://gitlab.gnome.org/GNOME/gthumb/-/archive/$pkgver/gthumb-$pkgver.t
         "
 
 build() {
-    CC=clang \
-    CXX=clang++ \
     abuild-meson \
         -Dwarn-deprecated=false \
         -Dclutter=false \
