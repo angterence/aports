@@ -1,0 +1,41 @@
+# Maintainer: Terence Ang <taang@qnx.com>
+pkgname=hpipm
+pkgver=0.1.3_git20260918
+_commit="bad1123a96136fce3cdd8bbcbe24b853d012b840"
+pkgrel=0
+pkgdesc="High-performance interior-point-method QP and QCQP solvers"
+url="https://github.com/giaf/hpipm"
+arch="all"
+license="BSD-2-Clause"
+options="!check"
+makedepends="cmake blasfeo-static blasfeo-dev"
+subpackages="$pkgname-static $pkgname-dev"
+source="
+    $pkgname-$_commit.tar.gz::https://github.com/giaf/hpipm/archive/$_commit.tar.gz
+    001-CMakeLists.patch
+"
+builddir="$srcdir/$pkgname-$_commit"
+
+build() {
+    export CFLAGS="$CFLAGS"
+    cmake -B build -S . \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+        -DBLASFEO_PATH=/usr
+
+    cmake --build build -j"$(nproc)"
+}
+
+package() {
+    DESTDIR="$pkgdir" cmake --install build
+}
+
+static() {
+    pkgdesc="$pkgname (static)"
+    install_if="$pkgname=$pkgver-r$pkgrel"
+    amove usr/lib/*.a
+}
+
+sha512sums="
+400853fd8d1e97b41a3c9f3cdc12e854209329293be5b93b2bc28bdb53c73ad653fafa44c7d5f395f9ba482e108bd846ed5491d7814cf6677c50b8d15a59c7b2  hpipm-bad1123a96136fce3cdd8bbcbe24b853d012b840.tar.gz
+"
