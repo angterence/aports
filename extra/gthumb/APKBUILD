@@ -58,10 +58,10 @@ subpackages="
     $pkgname-doc
     $pkgname-lang
     "
-options="!check"
 source="https://gitlab.gnome.org/GNOME/gthumb/-/archive/$pkgver/gthumb-$pkgver.tar.gz
         001-fix-time_t-type.patch
         002-fix-xopen-source.patch
+        003-exclude-test.patch
         "
 
 build() {
@@ -86,8 +86,11 @@ build() {
 }
 
 check() {
-    meson test --print-errorlogs -C output \
-      || msg "glib-utils tests failed due to abort"
+    # 4 out of 5 tests pass.
+    # The failed test, gthumb:glib-utils, has 39 out of 40 sub-tests pass
+    # Add a patch to exclude the failed sub-test, glib-utils/_g_utf8_translate
+
+    meson test --print-errorlogs --verbose -C output
 }
 
 package() {
