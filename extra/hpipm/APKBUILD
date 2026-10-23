@@ -1,0 +1,83 @@
+# Maintainer: Terence Ang <taang@qnx.com>
+pkgname=hpipm
+pkgver=0.1.3_git20260918
+_commit="bad1123a96136fce3cdd8bbcbe24b853d012b840"
+pkgrel=0
+pkgdesc="High-performance interior-point-method QP and QCQP solvers"
+url="https://github.com/giaf/hpipm"
+arch="all"
+license="BSD-2-Clause"
+depends="blasfeo"
+depends_dev="blasfeo-dev"
+makedepends="
+    $depends_dev
+    cmake
+"
+subpackages="$pkgname-dev"
+source="
+    $pkgname-$_commit.tar.gz::https://github.com/giaf/hpipm/archive/$_commit.tar.gz
+    001-CMakeLists.patch
+"
+builddir="$srcdir/$pkgname-$_commit"
+
+build() {
+    cmake -B build -S . \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+        -DBUILD_SHARED_LIBS=ON \
+        -DHPIPM_TESTING=ON \
+        -DBLASFEO_PATH=/usr
+
+    cmake --build build -j"$(nproc)"
+}
+
+package() {
+    DESTDIR="$pkgdir" cmake --install build
+
+    mv "$pkgdir"/usr/include/ "$pkgdir"/usr/include.tmp
+    mkdir -p "$pkgdir/usr/include/hpipm"
+    mv "$pkgdir"/usr/include.tmp "$pkgdir"/usr/include/hpipm
+    mv "$pkgdir"/usr/include/hpipm/include.tmp "$pkgdir"/usr/include/hpipm/include
+
+    header_list=$(find "$pkgdir"/usr/include/hpipm/include -type f)
+    cd "$pkgdir"/usr/include
+    for i in $header_list; do
+       file_name=$(basename $i)
+       ln -sf /usr/include/hpipm/include/$file_name $file_name
+    done
+}
+
+dev() {
+    default_dev
+    depends="
+        $depends
+	$pkgname=$pkgver-r$pkgrel
+    "
+}
+
+check() {
+    cd build
+    tests="
+        d_cond
+        d_dense_qp
+        d_ocp_qp
+        d_part_cond
+        d_tree_ocp_qp
+    "
+    for i in $tests; do
+        echo "Testing $i"
+
+        ./test_problems/$i >"/tmp/$i.log" 2>&1 || {
+            echo "FAILED: $i"
+            cat "/tmp/$i.log"
+            return 1
+        }
+
+        echo "PASSED: $i"
+    done
+}
+
+sha512sums="
+400853fd8d1e97b41a3c9f3cdc12e854209329293be5b93b2bc28bdb53c73ad653fafa44c7d5f395f9ba482e108bd846ed5491d7814cf6677c50b8d15a59c7b2  hpipm-bad1123a96136fce3cdd8bbcbe24b853d012b840.tar.gz
+28ad27600efc2796abcf30eab8bc096fd1857230b6c91ec9f9268ce7426f7726c8d44a09c63f7e45251ef7563877c0c9b02415eee0a18d1662da5a9b1e4cb79b  001-CMakeLists.patch
+"
