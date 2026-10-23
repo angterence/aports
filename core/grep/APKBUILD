@@ -14,8 +14,7 @@ subpackages="$pkgname-doc"
 source="https://mirrors.kernel.org/gnu/grep/grep-$pkgver.tar.xz"
 
 build() {
-    export CFLAGS="$CFLAGS -Wno-error=implicit-function-declaration"
-    export LDFLAGS="-lregex"
+    export LIBS="$LIBS -lregex -lsocket"
     ./configure \
         --build="$CBUILD" \
         --host="$CHOST" \
