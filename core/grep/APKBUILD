@@ -9,15 +9,13 @@ pkgdesc="Searches input files for lines containing a match to a specified patter
 url="https://www.gnu.org/software/grep/grep.html"
 license="GPL-3.0-or-later"
 depends="qnx-io-sock pcre2"
-makedepends="qnx-io-sock-dev pcre2-dev "
+makedepends="qnx-io-sock-dev pcre2-dev"
 subpackages="$pkgname-doc"
 source="https://mirrors.kernel.org/gnu/grep/grep-$pkgver.tar.xz"
 
 build() {
     export LIBS="$LIBS -lregex -lsocket"
     ./configure \
-        --build="$CBUILD" \
-        --host="$CHOST" \
         --prefix=/usr \
         --bindir=/usr/bin \
         --mandir=/usr/share/man \
