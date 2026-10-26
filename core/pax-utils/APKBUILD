@@ -8,6 +8,7 @@ pkgdesc="ELF utils that can check files for security relevant properties"
 url="https://wiki.gentoo.org/wiki/Hardened/PaX_Utilities"
 arch="all"
 makedepends="meson ninja"
+checkdepends="python3-elftools"
 license="GPL-2.0-only"
 subpackages="$pkgname-doc"
 source="https://dev.gentoo.org/~sam/distfiles/app-misc/pax-utils/pax-utils-$pkgver.tar.xz
@@ -23,6 +24,10 @@ build() {
           -Duse_seccomp=false \
           -Duse_libcap=disabled
     meson compile -C build
+}
+
+check() {
+    meson test --print-errorlogs -C build
 }
 
 package() {
