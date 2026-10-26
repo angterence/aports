@@ -16,21 +16,10 @@ source="https://dev.gentoo.org/~sam/distfiles/app-misc/pax-utils/pax-utils-$pkgv
 "
 
 build() {
-
-    _extra_flags=""
-    if [[ $CBUILD = $CHOST ]]; then
-        # Compile natively
-        _extra_flags="-Dc_link_args=-lregex -Duse_fuzzing=false"
-    else
-        # Cross compiling
-        BUILD_ROOT=$CBUILDROOT $CBUILDROOT/system/bin/gen-meson-cross
-        _extra_flags="--cross-file=meson.cross"
-    fi
-
-    meson setup build \
-          -Dprefix=/usr \
-          $_extra_flags \
+    abuild-meson . build \
+          -Dc_link_args="-lregex" \
           -Dlddtree_implementation=sh \
+          -Duse_fuzzing=false \
           -Duse_seccomp=false \
           -Duse_libcap=disabled
     meson compile -C build
