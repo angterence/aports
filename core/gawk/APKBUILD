@@ -19,8 +19,6 @@ source="https://mirror.csclub.uwaterloo.ca/gnu/gawk/gawk-$pkgver.tar.xz
 prepare() {
     default_prepare
 
-    # TODO: https://lists.gnu.org/archive/html/bug-gawk/2021-02/msg00005.html
-    sed -i test/Makefile.in -e "/clos1way6/d"
     autoreconf -fiv
 }
 
