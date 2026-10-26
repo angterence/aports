@@ -2,7 +2,7 @@
 # Maintainer: Felix Xing <fxing@qnx.com>
 pkgname=thunar
 pkgver=4.21.2
-pkgrel=1
+pkgrel=2
 pkgdesc="File manager for Xfce"
 url="https://docs.xfce.org/xfce/thunar/start"
 arch="all"
