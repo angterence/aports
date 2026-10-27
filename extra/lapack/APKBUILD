@@ -1,0 +1,81 @@
+# Contributor: Francesco Colista <fcolista@alpinelinux.org>
+# Alpine-Maintainer: Francesco Colista <fcolista@alpinelinux.org>
+# Maintainer: Terence Ang <taang@qnx.com>
+pkgname=lapack
+pkgver=3.12.1
+pkgrel=0
+pkgdesc="Linear Algebra PACKage"
+url="https://www.netlib.org/lapack/"
+arch="all"
+license="BSD-3-Clause"
+makedepends="cmake python3-dev flang22"
+subpackages="$pkgname-dev:_dev cblas blas blas-dev"
+source="https://github.com/Reference-LAPACK/lapack/archive/v$pkgver/lapack-v$pkgver.tar.gz"
+
+build() {
+	export FC=/usr/lib/llvm22/bin/flang-22
+
+	cmake -B build -G "Unix Makefiles" \
+	    -DCMAKE_BUILD_TYPE=Release \
+	    -DCMAKE_INSTALL_PREFIX=/usr \
+	    -DCMAKE_INSTALL_LIBDIR=lib \
+	    -DCMAKE_SKIP_RPATH=ON \
+	    -DBUILD_SHARED_LIBS=ON \
+	    -DBUILD_TESTING="$(want_check && echo ON || echo OFF)" \
+	    -DCMAKE_Fortran_COMPILER=/usr/lib/llvm22/bin/flang-22 \
+	    -DCMAKE_EXE_LINKER_FLAGS="-Wl,--no-as-needed -lgcc_s" \
+	    -DCMAKE_SHARED_LINKER_FLAGS="-Wl,--no-as-needed -lgcc_s" \
+	    -DLAPACKE=ON \
+	    -DCBLAS=ON
+	cmake --build build
+}
+
+check() {
+	LD_LIBRARY_PATH="$PWD"/build/lib ctest --test-dir build
+}
+
+package() {
+	DESTDIR="$pkgdir" cmake --build build --target install
+}
+
+_dev() {
+	default_dev
+
+	mkdir -p "$pkgdir"/usr/lib \
+		"$pkgdir"/usr/include  \
+		"$pkgdir"/usr/lib/pkgconfig \
+		"$pkgdir"/usr/lib/cmake
+
+	# Move development files meant for blas-dev
+	mv "$subpkgdir"/usr/lib/libblas.so \
+		"$subpkgdir"/usr/lib/libcblas.so \
+		"$pkgdir"/usr/lib
+
+	mv "$subpkgdir"/usr/lib/pkgconfig/*blas* \
+		"$pkgdir"/usr/lib/pkgconfig
+
+	mv "$subpkgdir"/usr/lib/cmake/*blas-* \
+		"$pkgdir"/usr/lib/cmake
+
+	mv "$subpkgdir"/usr/include/*blas* \
+		"$pkgdir"/usr/include
+}
+
+blas() {
+	depends=""
+	pkgdesc="The Basic Linear Algebra Subprograms library"
+
+	amove usr/lib/libblas.so.*
+}
+
+cblas() {
+	depends=""
+	pkgdesc="The C Basic Linear Algebra Subprograms library"
+
+	amove usr/lib/libcblas.so.*
+}
+
+
+sha512sums="
+9749976d773830eb635498611c7f1247af8dece23fe8c08446243aa39bdcc20dd35fdc670345643cd1ec6828e379d5c2152009817e0b486c10fd89a06602e0fb  lapack-v3.12.1.tar.gz
+"
