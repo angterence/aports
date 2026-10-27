@@ -15,7 +15,6 @@ subpackages="$pkgname-static $pkgname-dev $pkgname-doc"
 source="https://mirror.csclub.uwaterloo.ca/gnu/libunistring/libunistring-$pkgver.tar.xz"
 
 build() {
-    CFLAGS="$CFLAGS -fPIC" \
     ./configure \
         --prefix=/usr \
         --sysconfdir=/etc \
