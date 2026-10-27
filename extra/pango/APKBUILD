@@ -39,7 +39,7 @@ source="https://download.gnome.org/sources/pango/${pkgver%.*}/pango-$pkgver.tar.
     "
 
 build() {
-    meson setup \
+    abuild-meson . build \
         --prefix=/usr \
         -Db_lto=false \
         -Dintrospection=enabled \
@@ -47,8 +47,7 @@ build() {
         -Ddocumentation=false \
         -Dman-pages=false \
         -Dfreetype=enabled \
-        -Dc_link_args=-Wl,-lm \
-        build
+        -Dc_link_args=-Wl,-lm
     meson compile -C build
 }
 
