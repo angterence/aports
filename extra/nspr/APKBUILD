@@ -2,7 +2,7 @@
 # Maintainer: Aaron Bassett <abassett@qnx.com>
 pkgname=nspr
 pkgver=4.38.2
-pkgrel=0
+pkgrel=1
 _gitrel=1
 pkgdesc="Netscape Portable Runtime"
 url="https://www.mozilla.org/projects/nspr/"
