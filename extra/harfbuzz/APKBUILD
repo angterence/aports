@@ -3,7 +3,7 @@
 # Maintainer: Terence Ang <taang@qnx.com>
 pkgname=harfbuzz
 pkgver=11.3.3
-pkgrel=2
+pkgrel=1
 pkgdesc="Text shaping library"
 url="https://harfbuzz.github.io/"
 arch="all"
