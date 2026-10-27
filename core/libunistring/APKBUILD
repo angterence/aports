@@ -15,6 +15,7 @@ subpackages="$pkgname-static $pkgname-dev $pkgname-doc"
 source="https://mirror.csclub.uwaterloo.ca/gnu/libunistring/libunistring-$pkgver.tar.xz"
 
 build() {
+    LIBS="$LIBS -lsocket" \
     ./configure \
         --prefix=/usr \
         --sysconfdir=/etc \
