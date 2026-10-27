@@ -14,7 +14,6 @@ makedepends="autoconf automake qnx-io-sock-dev"
 subpackages="$pkgname-dev"
 source="https://github.com/qnx-ports/nspr/archive/refs/tags/qnx-v$pkgver-r$_gitrel.tar.gz
 	"
-options="!check"
 builddir="$srcdir/$pkgname-qnx-v$pkgver-r$_gitrel"
 
 prepare() {
@@ -45,6 +44,28 @@ package() {
 		"$pkgdir"/usr/lib/libnspr4.a \
 		"$pkgdir"/usr/lib/libplds4.a \
 		"$pkgdir"/usr/lib/libplc4.a
+}
+
+check() {
+	# Hang indefinitely
+	tests_excluded="anonfm"
+
+	# Fail in socketpair
+	tests_excluded="$tests_excluded foreign ioconthr sockping"
+
+	# Fail in PR_ACCEPT() / PR_WRITE() / PR_SetFDInheritable()
+	tests_excluded="$tests_excluded intrio peek pipeping2 poll_nm selct_nm sendzlf zerolen"
+
+	# Fail in RPI5 with segmentation violation
+	tests_excluded="$tests_excluded formattm"
+
+	for i in $tests_excluded; do
+		sed -i "s/$i//g" pr/tests/runtests.sh
+	done
+
+	cd pr/tests
+	EXTRA_LIBS="$EXTRA_LIBS -lsocket" make
+	./runtests.sh ../../dist/
 }
 
 
