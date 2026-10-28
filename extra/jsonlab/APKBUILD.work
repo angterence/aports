@@ -1,0 +1,24 @@
+# Maintainer: Terence Ang <taang@qnx.com>
+pkgname=jsonlab
+pkgver=2.9.8
+pkgrel=0
+pkgdesc="JSONLab: compact, portable, robust JSON/binary-JSON encoder/decoder for MATLAB/Octave"
+url="https://github.com/NeuroJSON/jsonlab"
+arch="all"
+license="BSD-3-Clause"
+options="!check"
+source="$pkgname-$pkgver.tar.gz::https://github.com/NeuroJSON/jsonlab/archive/refs/tags/v$pkgver.tar.gz"
+builddir="$srcdir/$pkgname-$pkgver"
+
+package() {
+    install -d "$pkgdir/usr/share/jsonlab"
+
+    # Copy files from the source root
+    find . -maxdepth 1 -type f -exec install -m 644 {} "$pkgdir/usr/share/jsonlab/" \;
+
+    # Copy supporting directories
+    cp -a examples images test "$pkgdir/usr/share/jsonlab/"
+}
+sha512sums="
+424b913b0b785d3788633bbd3afc393ae41db4e83f324579525658d9ddad19de7279fbed149860736dfdf147728a4d8681d8c00fa7fe932830e8156031dfe2af  jsonlab-2.9.8.tar.gz
+"
